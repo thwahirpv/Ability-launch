@@ -14,10 +14,10 @@ export default function AbilityBrand() {
       <Image
         src="/assets/logo_svg.svg"
         alt="Ability Logo"
-        width={160}
-        height={40}
+        width={100}
+        height={100}
         priority
-        className="w-auto h-8 md:h-10 lg:h-12"
+        className="w-[60px] md:w-[90px] lg:w-[90px] h-auto object-contain"
       />
     </motion.div>
   );
