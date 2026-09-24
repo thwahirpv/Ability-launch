@@ -1,6 +1,7 @@
 import { LaunchState } from "./launch-state";
 
 class LaunchAudioController {
+  private screenOpen: HTMLAudioElement | null = null;
   private openingBed: HTMLAudioElement | null = null;
   private keyTap: HTMLAudioElement | null = null;
   private submitWhoosh: HTMLAudioElement | null = null;
@@ -19,7 +20,7 @@ class LaunchAudioController {
 
   public setMuted(muted: boolean) {
     this.isMuted = muted;
-    const allAudios = [this.openingBed, this.keyTap, this.submitWhoosh, this.logoTransition, this.logoReveal, ...this.poppers];
+    const allAudios = [this.screenOpen, this.openingBed, this.keyTap, this.submitWhoosh, this.logoTransition, this.logoReveal, ...this.poppers];
     allAudios.forEach(audio => {
       if (audio) {
         audio.muted = muted;
@@ -46,9 +47,13 @@ class LaunchAudioController {
     this.isInitialized = true;
 
     try {
-      this.openingBed = new Audio("/assets/sound_effects/opening.mp3");
-      this.openingBed.loop = true;
-      this.openingBed.volume = 0; // Start at 0 for fade in
+      this.screenOpen = new Audio("/assets/sound_effects/screen_open.mp3");
+      this.screenOpen.loop = true;
+      this.screenOpen.volume = 0; // Start at 0 for fade in
+
+      this.openingBed = new Audio("/assets/sound_effects/inaguration_start.mp3");
+      this.openingBed.loop = false;
+      this.openingBed.volume = 0.2;
 
       this.keyTap = new Audio("/assets/sound_effects/keyboard.mp3");
       this.keyTap.volume = 0.1; // ~0.08-0.12
@@ -69,28 +74,28 @@ class LaunchAudioController {
       ];
       this.poppers.forEach(p => { p.volume = 0.35; }); // ~0.30-0.40
 
-      // Start playing opening bed on init (since init should only be called on user interaction)
-      this.playOpeningBed();
+      // Start playing screen open on init (since init should only be called on user interaction)
+      this.playScreenOpen();
     } catch (e) {
       console.warn("Audio initialization failed:", e);
     }
   }
 
-  private playOpeningBed() {
-    if (!this.openingBed) return;
+  private playScreenOpen() {
+    if (!this.screenOpen) return;
 
-    this.openingBed.play().then(() => {
-      this.fadeOpeningBed(0.2, 2000); // fade to 0.2 over 2 seconds
+    this.screenOpen.play().then(() => {
+      this.fadeAudio(this.screenOpen, 0.2, 2000); // fade to 0.2 over 2 seconds
     }).catch((e) => {
-      console.warn("Autoplay blocked for opening bed", e);
+      console.warn("Autoplay blocked for screen open", e);
     });
   }
 
-  private fadeOpeningBed(targetVolume: number, durationMs: number) {
-    if (!this.openingBed) return;
+  private fadeAudio(audio: HTMLAudioElement | null, targetVolume: number, durationMs: number) {
+    if (!audio) return;
     if (this.fadeInterval) clearInterval(this.fadeInterval);
 
-    const startVolume = this.openingBed.volume;
+    const startVolume = audio.volume;
     const diff = targetVolume - startVolume;
     const steps = 20;
     const stepTime = durationMs / steps;
@@ -100,19 +105,23 @@ class LaunchAudioController {
 
     this.fadeInterval = setInterval(() => {
       currentStep++;
-      if (!this.openingBed) {
+      if (!audio) {
         if (this.fadeInterval) clearInterval(this.fadeInterval);
         return;
       }
 
       let newVol = startVolume + (volStep * currentStep);
       newVol = Math.max(0, Math.min(1, newVol));
-      this.openingBed.volume = newVol;
+      audio.volume = newVol;
 
       if (currentStep >= steps) {
         if (this.fadeInterval) clearInterval(this.fadeInterval);
       }
     }, stepTime);
+  }
+
+  private fadeOpeningBed(targetVolume: number, durationMs: number) {
+    this.fadeAudio(this.openingBed, targetVolume, durationMs);
   }
 
   public playKeyTap(_key?: string) {
@@ -174,6 +183,15 @@ class LaunchAudioController {
         this.reset();
         break;
       case LaunchState.HI_SUBMITTED:
+        if (this.screenOpen) {
+          this.screenOpen.pause();
+          this.screenOpen.currentTime = 0;
+        }
+        if (this.openingBed) {
+          this.openingBed.currentTime = 0;
+          this.openingBed.volume = 0.2; // Play immediately at normal volume
+          this.openingBed.play().catch(() => {});
+        }
         this.playSubmission();
         break;
       case LaunchState.SIGN_COMPLETE:
@@ -204,14 +222,19 @@ class LaunchAudioController {
     });
 
     if (this.openingBed) {
+      this.openingBed.pause();
       this.openingBed.currentTime = 0;
-      this.fadeOpeningBed(0.2, 1000);
-      this.openingBed.play().catch(() => {});
+    }
+
+    if (this.screenOpen) {
+      this.screenOpen.currentTime = 0;
+      this.fadeAudio(this.screenOpen, 0.2, 1000);
+      this.screenOpen.play().catch(() => {});
     }
   }
 
   private stopAll() {
-    [this.openingBed, this.submitWhoosh, this.logoTransition, this.logoReveal, ...this.poppers].forEach(audio => {
+    [this.screenOpen, this.openingBed, this.submitWhoosh, this.logoTransition, this.logoReveal, ...this.poppers].forEach(audio => {
       if (audio) {
         audio.pause();
         audio.currentTime = 0;
