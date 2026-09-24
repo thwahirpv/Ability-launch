@@ -33,30 +33,21 @@ export default function LaunchOpening({ currentState, onStateChange }: LaunchOpe
           transition={{ duration: 1, ease: "easeInOut" }}
           className="absolute inset-0 w-full h-full flex flex-col justify-center items-center"
         >
-          {/* Central Interaction Area */}
-          <div className="flex flex-col items-center justify-center w-full max-w-5xl px-4 md:px-8">
-            {/* Logo with reduced gap to MUDRA 26 */}
-            <motion.div
-              animate={{ 
-                opacity: isSubmitted || isTransforming ? 0 : 1,
-                y: isSubmitted || isTransforming ? -10 : 0
-              }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="mb-3 md:mb-4"
-            >
-              <AbilityBrand />
-            </motion.div>
+          {/* Top Header: Logo + MUDRA 26 + Prompt positioned toward top */}
+          <motion.div
+            animate={{ 
+              opacity: isSubmitted || isTransforming ? 0 : 1,
+              y: isSubmitted || isTransforming ? -15 : 0
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute top-8 sm:top-10 md:top-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none w-full max-w-xl px-4 text-center"
+          >
+            <AbilityBrand />
+            <CommunicationPrompt />
+          </motion.div>
 
-            <motion.div
-              animate={{ 
-                opacity: isSubmitted || isTransforming ? 0 : 1,
-                y: isSubmitted || isTransforming ? -10 : 0
-              }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-              <CommunicationPrompt />
-            </motion.div>
-            
+          {/* Central Main Focus: Input field and Enter Button in True Center */}
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl px-4 md:px-8 z-30 pointer-events-auto">
             <CommunicationInput 
               currentState={currentState} 
               onComplete={handleInputComplete} 
