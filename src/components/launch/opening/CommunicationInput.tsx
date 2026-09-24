@@ -24,14 +24,21 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      inputRef.current?.focus();
-    }, 1000);
+      if (inputRef.current) {
+        inputRef.current.focus();
+        const len = inputRef.current.value.length;
+        inputRef.current.setSelectionRange(len, len);
+      }
+    }, 600);
     return () => clearTimeout(timer);
   }, []);
 
+  const isWelcome = value.trim().toUpperCase() === "WELCOME";
+  const canSubmit = isWelcome && !isSubmittedOrLater;
+
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (value.trim().length > 0 && !isSubmittedOrLater) {
+    if (canSubmit) {
       onComplete();
     }
   };
@@ -42,7 +49,15 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
     }
   };
 
-  const canSubmit = value.trim().length > 0 && !isSubmittedOrLater;
+  const handleFocus = () => {
+    setIsFocused(true);
+    setTimeout(() => {
+      if (inputRef.current) {
+        const len = inputRef.current.value.length;
+        inputRef.current.setSelectionRange(len, len);
+      }
+    }, 0);
+  };
 
   return (
     <motion.div
@@ -68,7 +83,7 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
                 launchAudio.playKeyTap();
               }
             }}
-            onFocus={() => setIsFocused(true)}
+            onFocus={handleFocus}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             animate={{
