@@ -89,7 +89,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
       <div className="w-full max-w-[1360px] mx-auto flex flex-col min-h-full">
 
         {/* 1. YouTube-style Search Box with Search Sentence */}
-        <div className="w-full max-w-xl md:max-w-2xl h-11 md:h-12 mb-6 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm mx-auto flex-shrink-0">
+        {/* <div className="w-full max-w-xl md:max-w-2xl h-11 md:h-12 mb-6 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm mx-auto flex-shrink-0">
           <div className="flex-1 px-5 text-sm md:text-base font-normal text-slate-800 flex items-center tracking-normal select-none">
             <span>WELCOME TO ABILITY</span>
           </div>
@@ -108,7 +108,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-        </div>
+        </div> */}
 
         {/* 2. Breadcrumbs (Word Library > Canteen > Welcome to ability) */}
         <div className="flex items-center gap-2 mb-3.5 text-xs select-none text-slate-500 font-medium">
