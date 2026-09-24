@@ -36,10 +36,10 @@ export default function LaunchExperience() {
   // GSAP-like state machine orchestration for Phases 5, 6, 7, and 8
   useEffect(() => {
     if (currentState === LaunchState.HI_SUBMITTED) {
-      const timer1 = setTimeout(() => setCurrentState(LaunchState.HI_TRANSFORMING), 450);
+      const timer1 = setTimeout(() => setCurrentState(LaunchState.HI_TRANSFORMING), 1000);
       return () => clearTimeout(timer1);
     } else if (currentState === LaunchState.HI_TRANSFORMING) {
-      const timer2 = setTimeout(() => setCurrentState(LaunchState.SIGN_ACTIVE), 450);
+      const timer2 = setTimeout(() => setCurrentState(LaunchState.SIGN_ACTIVE), 600);
       return () => clearTimeout(timer2);
     } else if (currentState === LaunchState.SIGN_COMPLETE) {
       const timer3 = setTimeout(() => setCurrentState(LaunchState.LOGO_REVEAL), 1300);

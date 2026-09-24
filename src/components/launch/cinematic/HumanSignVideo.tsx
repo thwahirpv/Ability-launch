@@ -44,12 +44,12 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
 
         gsap.to(containerRef.current, {
           opacity: 1,
-          duration: 0.5,
+          duration: 0.6,
           ease: "power2.out",
         });
       }
 
-      // Safety Fallback: video is ~2.87s; watchdog at 4.5s guarantees transition
+      // Safety Fallback: video is ~2.87s; watchdog guarantees transition
       const failsafe = setTimeout(() => {
         onComplete();
       }, 4500);
@@ -84,16 +84,46 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 z-15 pointer-events-none flex items-center justify-center bg-white opacity-0"
+      className="absolute inset-0 z-15 pointer-events-none flex flex-col items-center justify-center px-4 md:px-8 bg-white opacity-0"
     >
-      <video
-        ref={videoRef}
-        src="/assets/welcomevideo.mp4"
-        playsInline
-        preload="auto"
-        onEnded={handleVideoEnded}
-        className="w-full h-full object-cover"
-      />
+      <div className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl flex flex-col items-center">
+        
+        {/* YouTube-style Search Box */}
+        <div className="w-full max-w-lg md:max-w-xl h-11 md:h-12 mb-6 md:mb-8 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm">
+          <div className="flex-1 px-5 text-sm md:text-base font-normal text-slate-800 flex items-center tracking-normal select-none">
+            <span>WELCOME TO ABILITY</span>
+          </div>
+          <div className="w-14 md:w-16 h-full bg-[#f8f8f8] hover:bg-[#f0f0f0] border-l border-[#cccccc] flex items-center justify-center transition-colors">
+            {/* YouTube style search icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4 h-4 md:w-5 md:h-5 text-slate-700"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Video Box Container with rounded corners and modern card design */}
+        <div className="w-full aspect-video rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-white relative">
+          <video
+            ref={videoRef}
+            src="/assets/welcomevideo.mp4"
+            playsInline
+            preload="auto"
+            onEnded={handleVideoEnded}
+            className="w-full h-full object-cover rounded-2xl md:rounded-3xl"
+          />
+        </div>
+
+      </div>
     </div>
   );
 }
