@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { LaunchState } from "@/lib/launch/launch-state";
+import { launchAudio } from "@/lib/launch/launch-audio";
 
 interface CommunicationInputProps {
   currentState: LaunchState;
@@ -10,7 +11,7 @@ interface CommunicationInputProps {
 }
 
 export default function CommunicationInput({ currentState, onComplete }: CommunicationInputProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("WELCOME");
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,7 +31,7 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (value.trim().toUpperCase() === "HI" && !isSubmittedOrLater) {
+    if (value.trim().length > 0 && !isSubmittedOrLater) {
       onComplete();
     }
   };
@@ -40,6 +41,8 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
       handleSubmit();
     }
   };
+
+  const canSubmit = value.trim().length > 0 && !isSubmittedOrLater;
 
   return (
     <motion.div
@@ -62,27 +65,24 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
               setValue(newValue);
               
               if (newValue.length > prevValue.length) {
-                const addedChar = newValue.slice(-1);
-                if (addedChar === "H" || addedChar === "I") {
-                  import("@/lib/launch/launch-audio").then(m => m.launchAudio.playKeyTap());
-                }
+                launchAudio.playKeyTap();
               }
             }}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             animate={{
-              scale: isTransforming ? 1.5 : 1,
-              letterSpacing: isTransforming ? "0.4em" : "0.2em",
+              scale: isTransforming ? 1.4 : 1,
+              letterSpacing: isTransforming ? "0.35em" : "0.18em",
               opacity: isTransforming ? 0 : 1,
               filter: isTransforming ? "blur(8px)" : "blur(0px)",
-              color: isSubmittedOrLater ? "#42CFE3" : "#1E293B" // transitions to Ability Aqua
+              color: isSubmittedOrLater ? "#2A2DBB" : "#1E293B"
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
             className={`
               bg-transparent border-none outline-none
-              text-5xl md:text-7xl font-primary font-bold text-center
-              w-64 md:w-96 uppercase tracking-[0.2em]
+              text-4xl md:text-6xl lg:text-7xl font-primary font-bold text-center
+              w-72 sm:w-96 md:w-[500px] uppercase tracking-[0.18em]
               placeholder:text-transparent
             `}
             spellCheck={false}
@@ -98,7 +98,7 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             <motion.div 
               className="absolute top-0 left-0 h-full w-full bg-primary-blue origin-left"
               initial={{ scaleX: 0 }}
-              animate={{ scaleX: isFocused && !isSubmittedOrLater ? 1 : 0 }}
+              animate={{ scaleX: (isFocused || value.length > 0) && !isSubmittedOrLater ? 1 : 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />
           </motion.div>
@@ -108,12 +108,12 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
         <motion.button
           animate={{ opacity: isSubmittedOrLater ? 0 : 1, y: isSubmittedOrLater ? 10 : 0 }}
           type="submit"
-          disabled={value.trim().toUpperCase() !== "HI" || isSubmittedOrLater}
+          disabled={!canSubmit}
           className={`
             font-secondary text-sm tracking-widest uppercase
             px-8 py-3 rounded-full border transition-all duration-300
-            ${value.trim().toUpperCase() === "HI" && !isSubmittedOrLater
-              ? "border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white" 
+            ${canSubmit
+              ? "border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer shadow-sm hover:shadow" 
               : "border-border text-secondary-text opacity-50 cursor-not-allowed"}
           `}
         >

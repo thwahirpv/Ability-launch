@@ -1,6 +1,7 @@
 export const LaunchConfig = {
   // Video options to be decided later
   assets: {
+    welcomeVideo: "/assets/welcomevideo.mp4",
     videoMp4: "/assets/hi_mp4.mp4",
     videoMov: "/assets/hi_mov.mov",
     logoSvg: "/assets/logo_svg.svg",

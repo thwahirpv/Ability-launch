@@ -115,7 +115,7 @@ class LaunchAudioController {
     }, stepTime);
   }
 
-  public playKeyTap() {
+  public playKeyTap(_key?: string) {
     this.init(); // Ensures init on first keystroke if not already initialized
     if (!this.keyTap) return;
 

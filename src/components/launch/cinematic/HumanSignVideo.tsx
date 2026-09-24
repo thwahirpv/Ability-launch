@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { LaunchState } from "@/lib/launch/launch-state";
 import gsap from "gsap";
-import { Lottie, LottieHandle } from "lottie-react";
+import { launchAudio } from "@/lib/launch/launch-audio";
 
 interface HumanSignVideoProps {
   currentState: LaunchState;
@@ -11,65 +11,71 @@ interface HumanSignVideoProps {
 }
 
 export default function HumanSignVideo({ currentState, onComplete }: HumanSignVideoProps) {
-  const lottieRef = useRef<LottieHandle>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [animationData, setAnimationData] = useState<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Load the Lottie JSON dynamically to prevent initial bundle bloat
+  // Sync video audio mute with master launch audio state
   useEffect(() => {
-    fetch("/assets/hi_json.json")
-      .then(res => res.json())
-      .then(data => setAnimationData(data))
-      .catch(err => {
-        console.warn("Failed to load Lottie animation data:", err);
-      });
+    const unsubscribe = launchAudio.subscribeMute((muted) => {
+      if (videoRef.current) {
+        videoRef.current.muted = muted;
+      }
+    });
+    return unsubscribe;
   }, []);
 
-  // Handle timeline entrance and exit
+  // Handle timeline entrance, playback and exit
   useEffect(() => {
     if (currentState === LaunchState.SIGN_ACTIVE) {
-      if (containerRef.current) {
-        if (lottieRef.current) {
-          lottieRef.current.stop();
-          lottieRef.current.play();
+      if (containerRef.current && videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.muted = launchAudio.getMuted();
+
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            console.warn("Video unmuted autoplay blocked, retrying muted:", err);
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          });
         }
 
         gsap.to(containerRef.current, {
           opacity: 1,
-          duration: 1.5,
+          duration: 0.5,
           ease: "power2.out",
         });
       }
 
-      // Safety Fallback: if animation hangs and never fires onComplete, force completion
+      // Safety Fallback: video is ~2.87s; watchdog at 4.5s guarantees transition
       const failsafe = setTimeout(() => {
-        console.warn("Animation watchdog triggered: onComplete did not fire.");
         onComplete();
-      }, 5000); // Max 5 seconds for the animation
+      }, 4500);
       return () => clearTimeout(failsafe);
 
     } else if (currentState === LaunchState.SIGN_COMPLETE) {
       if (containerRef.current) {
         gsap.to(containerRef.current, {
           opacity: 0,
-          duration: 1.3,
-          delay: 0.5, // Brief hold on completed gesture before dissolving
+          duration: 0.8,
           ease: "power2.inOut",
         });
       }
     } else if (currentState === LaunchState.IDLE) {
-      // Reset logic
       if (containerRef.current) {
         gsap.killTweensOf(containerRef.current);
         containerRef.current.style.opacity = "0";
       }
-      if (lottieRef.current) {
-        lottieRef.current.stop();
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
       }
     }
-  }, [currentState, onComplete, animationData]);
+  }, [currentState, onComplete]);
 
-  const handleAnimationComplete = () => {
+  const handleVideoEnded = () => {
     if (currentState === LaunchState.SIGN_ACTIVE) {
       onComplete();
     }
@@ -78,20 +84,16 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 z-15 pointer-events-none flex items-center justify-center opacity-0"
+      className="absolute inset-0 z-15 pointer-events-none flex items-center justify-center bg-white opacity-0"
     >
-      <div className="relative w-full h-[35vh] md:h-[45vh] max-h-full flex justify-center items-center">
-        {animationData && (
-          <Lottie
-            lottieRef={lottieRef}
-            src={animationData}
-            loop={false}
-            autoplay={false}
-            subscriptions={{ complete: handleAnimationComplete }}
-            className="h-full w-auto object-contain"
-          />
-        )}
-      </div>
+      <video
+        ref={videoRef}
+        src="/assets/welcomevideo.mp4"
+        playsInline
+        preload="auto"
+        onEnded={handleVideoEnded}
+        className="w-full h-full object-cover"
+      />
     </div>
   );
 }
