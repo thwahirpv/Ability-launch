@@ -84,16 +84,16 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 z-15 pointer-events-none flex flex-col bg-white opacity-0 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8"
+      className="absolute inset-0 z-15 pointer-events-none flex flex-col bg-white opacity-0 overflow-hidden p-4 md:p-6 lg:p-8"
     >
-      <div className="w-full max-w-[1360px] mx-auto flex flex-col min-h-full">
+      <div className="w-full max-w-[1360px] mx-auto flex flex-col h-full">
 
         {/* 1. YouTube-style Search Box with Search Sentence */}
-        {/* <div className="w-full max-w-xl md:max-w-2xl h-11 md:h-12 mb-6 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm mx-auto flex-shrink-0">
+        <div className="w-full max-w-xl md:max-w-2xl h-11 mb-4 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm mx-auto flex-shrink-0">
           <div className="flex-1 px-5 text-sm md:text-base font-normal text-slate-800 flex items-center tracking-normal select-none">
             <span>WELCOME TO ABILITY</span>
           </div>
-          <div className="w-14 md:w-16 h-full bg-[#f8f8f8] hover:bg-[#f0f0f0] border-l border-[#cccccc] flex items-center justify-center transition-colors">
+          <div className="w-12 md:w-14 h-full bg-[#f8f8f8] hover:bg-[#f0f0f0] border-l border-[#cccccc] flex items-center justify-center transition-colors">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -108,50 +108,50 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-        </div> */}
+        </div>
 
-        {/* 2. Breadcrumbs (Word Library > Canteen > Welcome to ability) */}
-        <div className="flex items-center gap-2 mb-3.5 text-xs select-none text-slate-500 font-medium">
+        {/* 2. Breadcrumbs (Word Library > Greetings > Welcome to ability) */}
+        <div className="flex items-center gap-2 mb-2 text-xs select-none text-slate-500 font-medium flex-shrink-0">
           <span className="hover:text-slate-800 transition-colors cursor-pointer">Word Library</span>
           <span className="text-slate-400">›</span>
-          <span className="hover:text-slate-800 transition-colors cursor-pointer">Canteen</span>
+          <span className="hover:text-slate-800 transition-colors cursor-pointer">Greetings</span>
           <span className="text-slate-400">›</span>
           <span className="text-slate-900 font-semibold">Welcome to ability</span>
         </div>
 
         {/* 3. Main Player & Meta Row */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-8 items-start w-full">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-24 mb-4 items-start w-full flex-1 min-h-0">
           {/* Left Column: Video Card */}
-          <div className="w-full lg:w-[65%] flex flex-col">
-            <div className="w-full aspect-[16/9.5] rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-black relative">
+          <div className="h-full flex-shrink-0 max-w-full">
+            <div className="h-full aspect-[16/9.5] max-w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-[#0c233c] relative">
               <video
                 ref={videoRef}
                 src="/assets/welcomevideo2.mp4"
                 playsInline
                 preload="auto"
                 onEnded={handleVideoEnded}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover absolute inset-0"
               />
             </div>
           </div>
 
           {/* Right Column: Meta Details */}
-          <div className="w-full lg:w-[35%] flex flex-col pt-1">
+          <div className="flex flex-col pt-1 lg:pt-3 max-w-sm w-full items-start">
             {/* Badge & Bookmark/Share Row */}
             <div className="flex items-center justify-between w-full">
-              {/* Category Badge (CANTEEN) in Blue */}
+              {/* Category Badge (GREETINGS) in Blue */}
               <div className="px-3.5 py-1.5 rounded-lg bg-[#2538BA] text-white text-xs font-bold tracking-wider uppercase select-none">
-                CANTEEN
+                GREETINGS
               </div>
 
               {/* Action Buttons (Bookmark & Share) */}
               <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white">
+                <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white hover:bg-slate-50 transition-colors cursor-pointer">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                   </svg>
                 </div>
-                <div className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white">
+                <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white hover:bg-slate-50 transition-colors cursor-pointer">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <circle cx="18" cy="5" r="3" />
                     <circle cx="6" cy="12" r="3" />
@@ -164,47 +164,72 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
             </div>
 
             {/* Title: Selected sentence (Welcome to ability) */}
-            <h1 className="text-3xl md:text-4xl font-extrabold text-[#111827] tracking-tight mt-5">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-[#111827] tracking-tight mt-4">
               Welcome to ability
             </h1>
+            
+            {/* Description */}
+            <p className="text-slate-500 text-sm md:text-base leading-relaxed mt-3">
+              A warm greeting used to welcome someone to Ability and make them feel accepted and included.
+            </p>
           </div>
 
         </div>
 
-        {/* 4. Related Content Section (with 4 suggestions from assets/skeltonimages) */}
-        <div className="w-full flex flex-col mt-2">
+        {/* 4. Related Content Section */}
+        <div className="w-full flex flex-col flex-shrink-0">
           {/* Section Header */}
-          <h2 className="text-lg md:text-xl font-bold text-slate-900 mb-4 select-none">
+          <h2 className="text-sm md:text-base font-bold text-slate-900 mb-1.5 select-none">
             Related Content
           </h2>
 
-          {/* 4 Cards Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+          {/* 8 Cards Grid */}
+          <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3 w-full">
             {[
               {
-                title: "Bottle",
-                category: "Canteen",
+                title: "Hello",
+                category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_1.png",
               },
               {
-                title: "Breakfast",
-                category: "Canteen",
+                title: "Good Morning",
+                category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_2.png",
               },
               {
-                title: "Burger",
-                category: "Canteen",
+                title: "Good Afternoon",
+                category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_3.png",
               },
               {
-                title: "Cashier",
-                category: "Canteen",
+                title: "Good Evening",
+                category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_4.png",
               },
-            ].map((item) => (
-              <div key={item.title} className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200/90 bg-white">
+              {
+                title: "Hi",
+                category: "Greetings",
+                image: "/assets/skeltonimages/suggestion_1.png",
+              },
+              {
+                title: "How are you?",
+                category: "Greetings",
+                image: "/assets/skeltonimages/suggestion_2.png",
+              },
+              {
+                title: "Nice to meet you",
+                category: "Greetings",
+                image: "/assets/skeltonimages/suggestion_3.png",
+              },
+              {
+                title: "Welcome",
+                category: "Greetings",
+                image: "/assets/skeltonimages/suggestion_4.png",
+              },
+            ].map((item, index) => (
+              <div key={index} className="flex flex-col rounded-lg overflow-hidden shadow-sm border border-slate-200/90 bg-white">
                 {/* Card Thumbnail */}
-                <div className="w-full aspect-[16/10] bg-slate-900 relative overflow-hidden">
+                <div className="w-full aspect-[4/3] bg-slate-900 relative overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.image}
@@ -214,17 +239,17 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                 </div>
 
                 {/* Card Body */}
-                <div className="p-3.5 bg-white flex items-center justify-between">
-                  <div className="flex flex-col gap-0.5">
-                    <span className="font-bold text-slate-900 text-sm md:text-base leading-snug">
+                <div className="p-1.5 md:p-2 bg-white flex items-center justify-between gap-1">
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-bold text-slate-900 text-xs md:text-sm leading-tight truncate">
                       {item.title}
                     </span>
-                    <span className="text-xs text-slate-400 font-normal">
+                    <span className="text-[9px] md:text-[10px] text-slate-400 font-medium mt-0.5 truncate">
                       {item.category}
                     </span>
                   </div>
-                  <div className="w-5 h-5 flex items-center justify-center text-slate-400">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <div className="w-3 h-3 md:w-4 md:h-4 flex items-center justify-center text-slate-400 flex-shrink-0">
+                    <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                     </svg>
                   </div>
