@@ -110,14 +110,15 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
           </div>
         </div>
 
-        {/* 2. Breadcrumbs Skeleton (Word Library > Canteen > Biscuit) */}
-        <div className="flex items-center gap-2 mb-3.5 text-xs select-none">
-          <div className="h-3.5 w-20 rounded bg-slate-200 animate-pulse" />
-          <span className="text-slate-300">›</span>
-          <div className="h-3.5 w-16 rounded bg-slate-200 animate-pulse" />
-          <span className="text-slate-300">›</span>
-          <div className="h-3.5 w-14 rounded bg-slate-200 animate-pulse" />
+        {/* 2. Breadcrumbs (Word Library > Canteen > Welcome to ability) */}
+        <div className="flex items-center gap-2 mb-3.5 text-xs select-none text-slate-500 font-medium">
+          <span className="hover:text-slate-800 transition-colors cursor-pointer">Word Library</span>
+          <span className="text-slate-400">›</span>
+          <span className="hover:text-slate-800 transition-colors cursor-pointer">Canteen</span>
+          <span className="text-slate-400">›</span>
+          <span className="text-slate-900 font-semibold">Welcome to ability</span>
         </div>
+
         {/* 3. Main Player & Meta Row */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-8 items-start w-full">
           {/* Left Column: Video Card */}
@@ -125,7 +126,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
             <div className="w-full aspect-[16/9.5] rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-black relative">
               <video
                 ref={videoRef}
-                src="/assets/welcomevideo.mp4"
+                src="/assets/welcomevideo2.mp4"
                 playsInline
                 preload="auto"
                 onEnded={handleVideoEnded}
@@ -134,50 +135,98 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
             </div>
           </div>
 
-          {/* Right Column: Meta Skeletons matching screenshot */}
+          {/* Right Column: Meta Details */}
           <div className="w-full lg:w-[35%] flex flex-col pt-1">
             {/* Badge & Bookmark/Share Row */}
             <div className="flex items-center justify-between w-full">
-              {/* Category Badge Skeleton */}
-              <div className="h-7 w-20 rounded-md bg-slate-200 animate-pulse" />
+              {/* Category Badge (CANTEEN) in Blue */}
+              <div className="px-3.5 py-1.5 rounded-lg bg-[#2538BA] text-white text-xs font-bold tracking-wider uppercase select-none">
+                CANTEEN
+              </div>
               
-              {/* Action Buttons Skeletons (Bookmark & Share) */}
+              {/* Action Buttons (Bookmark & Share) */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400">
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                <div className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                  </svg>
                 </div>
-                <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400">
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <div className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <circle cx="18" cy="5" r="3" />
+                    <circle cx="6" cy="12" r="3" />
+                    <circle cx="18" cy="19" r="3" />
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                  </svg>
                 </div>
               </div>
             </div>
 
-            {/* Title Skeleton (matching "Biscuit" in screenshot) */}
-            <div className="h-9 w-44 rounded-lg bg-slate-200 animate-pulse mt-5" />
+            {/* Title: Selected sentence (Welcome to ability) */}
+            <h1 className="text-3xl md:text-4xl font-extrabold text-[#111827] tracking-tight mt-5">
+              Welcome to ability
+            </h1>
           </div>
 
         </div>
 
-        {/* 4. Related Content Section (Skeletons matching screenshot) */}
+        {/* 4. Related Content Section (with 4 suggestions from assets/skeltonimages) */}
         <div className="w-full flex flex-col mt-2">
-          {/* Section Header Skeleton */}
-          <div className="h-5 w-36 rounded-md bg-slate-200 animate-pulse mb-4" />
+          {/* Section Header */}
+          <h2 className="text-lg md:text-xl font-bold text-slate-900 mb-4 select-none">
+            Related Content
+          </h2>
 
           {/* 4 Cards Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200/80 bg-white">
-                {/* Card Thumbnail Skeleton (neutral light gray like YouTube) */}
-                <div className="w-full aspect-[16/10] bg-slate-200 animate-pulse relative" />
+            {[
+              {
+                title: "Bottle",
+                category: "Canteen",
+                image: "/assets/skeltonimages/suggestion_1.png",
+              },
+              {
+                title: "Breakfast",
+                category: "Canteen",
+                image: "/assets/skeltonimages/suggestion_2.png",
+              },
+              {
+                title: "Burger",
+                category: "Canteen",
+                image: "/assets/skeltonimages/suggestion_3.png",
+              },
+              {
+                title: "Cashier",
+                category: "Canteen",
+                image: "/assets/skeltonimages/suggestion_4.png",
+              },
+            ].map((item) => (
+              <div key={item.title} className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200/90 bg-white">
+                {/* Card Thumbnail */}
+                <div className="w-full aspect-[16/10] bg-slate-900 relative overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 
-                {/* Card Body Skeleton */}
-                <div className="p-3 bg-white flex items-center justify-between">
-                  <div className="flex flex-col gap-1.5 flex-1">
-                    <div className="h-3.5 w-20 rounded bg-slate-200 animate-pulse" />
-                    <div className="h-2.5 w-14 rounded bg-slate-100 animate-pulse" />
+                {/* Card Body */}
+                <div className="p-3.5 bg-white flex items-center justify-between">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-bold text-slate-900 text-sm md:text-base leading-snug">
+                      {item.title}
+                    </span>
+                    <span className="text-xs text-slate-400 font-normal">
+                      {item.category}
+                    </span>
                   </div>
-                  <div className="w-5 h-5 flex items-center justify-center text-slate-300">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                  <div className="w-5 h-5 flex items-center justify-center text-slate-400">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
                   </div>
                 </div>
               </div>

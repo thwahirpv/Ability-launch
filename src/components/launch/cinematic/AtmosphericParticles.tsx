@@ -24,12 +24,12 @@ export default function AtmosphericParticles({ currentState }: AtmosphericPartic
     
     // Palette curated for high contrast and elegance on pure white
     const palette = [
-      new THREE.Color("#2A2DBB"), // Royal Blue (Ability)
-      new THREE.Color("#0191D7"), // Vibrant Cyan
-      new THREE.Color("#83BC2A"), // Fresh Green (Ability)
-      new THREE.Color("#E11D48"), // Deep Rose / Festive Red
-      new THREE.Color("#7C3AED"), // Deep Violet
-      new THREE.Color("#D97706"), // Warm Amber
+      new THREE.Color("#060af3ff"), // Royal Blue (Ability)
+      new THREE.Color("#0477b1ff"), // Vibrant Cyan
+      new THREE.Color("#0756a4ff"), // Fresh Green (Ability)
+      new THREE.Color("#1d65e1ff"), // Deep Rose / Festive Red
+      new THREE.Color("#553aedff"), // Deep Violet
+      new THREE.Color("#061fd9ff"), // Warm Amber
       new THREE.Color("#1E293B"), // Deep Slate contrast
     ];
 
