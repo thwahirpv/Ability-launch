@@ -9,7 +9,37 @@ class LaunchAudioController {
   private poppers: HTMLAudioElement[] = [];
 
   private isInitialized = false;
+  private isMuted = false;
+  private muteListeners: Set<(muted: boolean) => void> = new Set();
   private fadeInterval: NodeJS.Timeout | null = null;
+
+  public getMuted(): boolean {
+    return this.isMuted;
+  }
+
+  public setMuted(muted: boolean) {
+    this.isMuted = muted;
+    const allAudios = [this.openingBed, this.keyTap, this.submitWhoosh, this.logoTransition, this.logoReveal, ...this.poppers];
+    allAudios.forEach(audio => {
+      if (audio) {
+        audio.muted = muted;
+      }
+    });
+    this.muteListeners.forEach(listener => listener(muted));
+  }
+
+  public toggleMute(): boolean {
+    this.setMuted(!this.isMuted);
+    return this.isMuted;
+  }
+
+  public subscribeMute(listener: (muted: boolean) => void): () => void {
+    this.muteListeners.add(listener);
+    listener(this.isMuted);
+    return () => {
+      this.muteListeners.delete(listener);
+    };
+  }
 
   public init() {
     if (this.isInitialized || typeof window === "undefined") return;
@@ -151,6 +181,10 @@ class LaunchAudioController {
         break;
       case LaunchState.LOGO_REVEAL:
         this.playLogoReveal();
+        break;
+      case LaunchState.IDENTITY_REVEAL:
+        this.playPopper(0);
+        setTimeout(() => this.playPopper(1), 85);
         break;
       case LaunchState.WEBSITE_REVEAL:
         this.fadeOpeningBed(0, 2500);

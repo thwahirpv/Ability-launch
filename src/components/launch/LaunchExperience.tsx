@@ -12,6 +12,7 @@ import AbilityLogoReveal from "./cinematic/AbilityLogoReveal";
 import CinematicAudio from "./cinematic/CinematicAudio";
 import WebGLFallbackErrorBoundary from "./WebGLFallbackErrorBoundary";
 import confetti from "canvas-confetti";
+import AudioMuteButton from "./AudioMuteButton";
 
 export default function LaunchExperience() {
   const [currentState, setCurrentState] = useState<LaunchState>(LaunchState.IDLE);
@@ -161,6 +162,11 @@ export default function LaunchExperience() {
       {/* Z-index 20: HTML UI Layer (Initial Launch Screen) */}
       {!isExperienceComplete && (
         <LaunchUI currentState={currentState} onStateChange={setCurrentState} />
+      )}
+
+      {/* Audio Mute/Unmute Button in screen left bottom */}
+      {!isExperienceComplete && (
+        <AudioMuteButton currentState={currentState} />
       )}
     </div>
   );

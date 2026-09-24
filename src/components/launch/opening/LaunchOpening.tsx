@@ -33,16 +33,20 @@ export default function LaunchOpening({ currentState, onStateChange }: LaunchOpe
           transition={{ duration: 1, ease: "easeInOut" }}
           className="absolute inset-0 w-full h-full flex flex-col justify-center items-center"
         >
-          {/* Logo */}
-          <motion.div
-            animate={{ opacity: isSubmitted || isTransforming ? 0 : 1 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          >
-            <AbilityBrand />
-          </motion.div>
-
           {/* Central Interaction Area */}
           <div className="flex flex-col items-center justify-center w-full max-w-4xl px-8">
+            {/* Logo with reduced gap to MUDRA 26 */}
+            <motion.div
+              animate={{ 
+                opacity: isSubmitted || isTransforming ? 0 : 1,
+                y: isSubmitted || isTransforming ? -10 : 0
+              }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="mb-3 md:mb-4"
+            >
+              <AbilityBrand />
+            </motion.div>
+
             <motion.div
               animate={{ 
                 opacity: isSubmitted || isTransforming ? 0 : 1,
