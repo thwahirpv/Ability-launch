@@ -92,7 +92,7 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
               letterSpacing: isTransforming ? "0.26em" : "0.14em",
               opacity: isTransforming ? 0 : 1,
               filter: isTransforming ? "blur(8px)" : "blur(0px)",
-              color: isSubmittedOrLater ? "#2A2DBB" : "#1E293B"
+              color: isSubmittedOrLater ? "#0093dd" : "#1E293B"
             }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className={`
@@ -112,7 +112,7 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-border overflow-hidden"
           >
             <motion.div 
-              className="absolute top-0 left-0 h-full w-full bg-primary-blue origin-left"
+              className="absolute top-0 left-0 h-full w-full bg-[#0278b3] origin-left"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: (isFocused || value.length > 0) && !isSubmittedOrLater ? 1 : 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -129,11 +129,11 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             font-secondary text-sm tracking-widest uppercase
             px-8 py-3 rounded-full border transition-all duration-300
             ${canSubmit
-              ? "border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer shadow-sm hover:shadow" 
+              ? "border-[#0093dd] text-[#0093dd] hover:bg-[#0093dd] hover:text-white cursor-pointer shadow-sm hover:shadow" 
               : "border-border text-secondary-text opacity-50 cursor-not-allowed"}
           `}
         >
-          Enter
+          Begin the Journey
         </motion.button>
       </form>
     </motion.div>

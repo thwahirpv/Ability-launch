@@ -40,14 +40,14 @@ export default function LaunchOpening({ currentState, onStateChange }: LaunchOpe
               y: isSubmitted || isTransforming ? -15 : 0
             }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="absolute top-8 sm:top-10 md:top-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none w-full max-w-xl px-4 text-center"
+            className="absolute top-8 sm:top-10 md:top-16 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none w-full max-w-xl px-4 text-center"
           >
             <AbilityBrand />
             <CommunicationPrompt />
           </motion.div>
 
           {/* Central Main Focus: Input field and Enter Button in True Center */}
-          <div className="flex flex-col items-center justify-center w-full max-w-5xl px-4 md:px-8 z-30 pointer-events-auto">
+          <div className="flex flex-col mt-16 items-center justify-center w-full max-w-5xl px-4 md:px-8 z-30 pointer-events-auto">
             <CommunicationInput 
               currentState={currentState} 
               onComplete={handleInputComplete} 

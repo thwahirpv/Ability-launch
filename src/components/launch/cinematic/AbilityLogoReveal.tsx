@@ -62,7 +62,7 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
               duration: isWebsiteReveal ? 2.5 : 1.5, 
               ease: isWebsiteReveal ? "easeOut" : [0.16, 1, 0.3, 1] 
             }}
-            className="relative flex flex-col items-center w-full"
+            className="relative flex flex-col items-center w-full mb-16"
           >
             {/* The Logo */}
             <div className="w-[30%] max-w-[400px] min-w-[200px]">
@@ -90,7 +90,7 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
                   }}
                   className="absolute top-full mt-6 md:mt-8 text-center flex flex-col items-center"
                 >
-                  <h1 className="text-3xl md:text-5xl font-bold font-primary text-[#2A2DBB] tracking-wider uppercase mb-1.5 select-none">
+                  <h1 className="text-3xl md:text-5xl font-bold font-primary text-[#0093dd] tracking-wider uppercase mb-1.5 select-none">
                     MUDRA 26
                   </h1>
                   <h2 className="text-xl md:text-2xl lg:text-3xl font-primary text-slate-800 tracking-wide font-normal">
