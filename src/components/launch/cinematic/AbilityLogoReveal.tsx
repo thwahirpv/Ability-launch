@@ -32,15 +32,15 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
             key="visual-trace"
             initial={{ opacity: 0, scale: 2 }}
             animate={{ 
-              opacity: isSignComplete ? 0.4 : 0, 
+              opacity: isSignComplete ? 0.35 : 0, 
               scale: isSignComplete ? 0.2 : 0,
             }}
             exit={{ opacity: 0 }}
             transition={{ 
               duration: 1.2, 
-              ease: "circOut" // Gives a feeling of energy collapsing into the center
+              ease: "circOut"
             }}
-            className="absolute center w-32 h-32 rounded-full bg-primary-aqua blur-3xl mix-blend-screen"
+            className="absolute center w-32 h-32 rounded-full bg-[#0191D7]/30 blur-2xl pointer-events-none"
           />
         )}
       </AnimatePresence>
@@ -52,11 +52,9 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
             key="ability-logo-container"
             initial={{ opacity: 0, scale: 0.94, filter: "blur(12px)", y: 0 }}
             animate={{ 
-              // Fade logo gently during website reveal
               opacity: isWebsiteReveal ? 0 : 1, 
-              scale: isWebsiteReveal ? 1.05 : 1, // Subtle push toward camera as it dissolves
+              scale: isWebsiteReveal ? 1.05 : 1,
               filter: "blur(0px)",
-              // A microscopic composition adjustment upward when the identity text reveals
               y: showIdentityText ? -10 : 0
             }}
             exit={{ opacity: 0 }}
@@ -73,7 +71,7 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
                 alt="Ability Logo"
                 width={400}
                 height={100}
-                className="w-full h-auto drop-shadow-2xl"
+                className="w-full h-auto drop-shadow-xl"
                 priority
               />
             </div>
@@ -90,9 +88,12 @@ export default function AbilityLogoReveal({ currentState }: AbilityLogoRevealPro
                     duration: 1.2, 
                     ease: "easeOut"
                   }}
-                  className="absolute top-full mt-8 md:mt-12 text-center"
+                  className="absolute top-full mt-6 md:mt-8 text-center flex flex-col items-center"
                 >
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-primary text-slate-200 tracking-wide font-normal drop-shadow-lg">
+                  <h1 className="text-3xl md:text-5xl font-bold font-primary text-[#2A2DBB] tracking-wider uppercase mb-1.5 select-none">
+                    MUDRA 26
+                  </h1>
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-primary text-slate-800 tracking-wide font-normal">
                     Ability begins here.
                   </h2>
                 </motion.div>

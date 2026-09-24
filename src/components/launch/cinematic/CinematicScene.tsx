@@ -19,64 +19,51 @@ export default function CinematicScene({ currentState }: CinematicSceneProps) {
 
   // Initialize scene properties
   useEffect(() => {
-    scene.background = new THREE.Color("#F8FAFC"); // Ability light background
-    // Deep blue-black cinematic fog matching the intended dark environment
-    scene.fog = new THREE.FogExp2("#070B19", 0);
+    scene.background = new THREE.Color("#FFFFFF");
+    scene.fog = null;
   }, [scene]);
 
   // Handle transition when HI_SUBMITTED
   useEffect(() => {
     if (currentState === LaunchState.HI_SUBMITTED) {
-      // 1. Transition the background from light to deep blue-black
       if (scene.background instanceof THREE.Color) {
         gsap.to(scene.background, {
-          r: 7 / 255,   // #070B19
-          g: 11 / 255,
-          b: 25 / 255,
-          duration: 2.5,
+          r: 1,
+          g: 1,
+          b: 1,
+          duration: 1,
           ease: "power2.inOut",
         });
       }
 
-      // 2. Establish atmospheric depth (Fog)
-      gsap.to(scene.fog as THREE.FogExp2, {
-        density: 0.05,
-        duration: 3,
-        ease: "power2.inOut",
-      });
-
-      // 3. Lighting changes
+      // Keep lighting clean and bright for white background
       if (ambientLightRef.current) {
         gsap.to(ambientLightRef.current, {
-          intensity: 0.05, // Dim ambient
-          duration: 2.5,
+          intensity: 1.2,
+          duration: 1.5,
           ease: "power2.inOut",
         });
       }
       
       if (spotLightRef.current) {
         gsap.to(spotLightRef.current, {
-          intensity: 1.5,
-          duration: 3,
+          intensity: 1.0,
+          duration: 2,
           ease: "power2.inOut",
         });
       }
 
       if (blueLightRef.current) {
         gsap.to(blueLightRef.current, {
-          intensity: 0.4,
-          duration: 3,
+          intensity: 0.25,
+          duration: 2,
           ease: "power2.inOut",
         });
       }
       
     } else if (currentState === LaunchState.IDLE) {
-      // Reset logic for dev 'R' restart
       if (scene.background instanceof THREE.Color) {
-        scene.background.setHex(0xf8fafc);
-      }
-      if (scene.fog) {
-        (scene.fog as THREE.FogExp2).density = 0;
+        scene.background.setHex(0xffffff);
       }
       if (ambientLightRef.current) ambientLightRef.current.intensity = 1.0;
       if (spotLightRef.current) spotLightRef.current.intensity = 0;

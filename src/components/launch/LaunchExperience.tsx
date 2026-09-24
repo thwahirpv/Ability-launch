@@ -51,8 +51,8 @@ export default function LaunchExperience() {
       const timer5 = setTimeout(() => setCurrentState(LaunchState.IDENTITY_REVEAL), 800);
       return () => clearTimeout(timer5);
     } else if (currentState === LaunchState.IDENTITY_REVEAL) {
-      // Fire massive inauguration confetti from both corners to cover the whole screen
-      const festiveColors = ['#FFD700', '#00FFFF', '#FF3366', '#FFFFFF', '#4D4DFF']; // Gold, Cyan, Pink, White, Bright Blue
+      // Fire massive inauguration confetti with vibrant colors visible on white background
+      const festiveColors = ['#2A2DBB', '#0191D7', '#83BC2A', '#FF3366', '#FFB800', '#7C3AED'];
 
       // Left cannon
       confetti({
