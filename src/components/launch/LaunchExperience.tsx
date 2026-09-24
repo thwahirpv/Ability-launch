@@ -75,6 +75,11 @@ export default function LaunchExperience() {
         zIndex: 100,
       });
 
+      import("@/lib/launch/launch-audio").then(m => {
+        m.launchAudio.playPopper(0);
+        setTimeout(() => m.launchAudio.playPopper(1), 30);
+      });
+
       const timer6 = setTimeout(() => setCurrentState(LaunchState.IDENTITY_HOLD), 1200);
       return () => clearTimeout(timer6);
     } else if (currentState === LaunchState.IDENTITY_HOLD) {

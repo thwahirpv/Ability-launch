@@ -56,7 +56,18 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             type="text"
             value={value}
             readOnly={isSubmittedOrLater}
-            onChange={(e) => setValue(e.target.value.toUpperCase())}
+            onChange={(e) => {
+              const prevValue = value;
+              const newValue = e.target.value.toUpperCase();
+              setValue(newValue);
+              
+              if (newValue.length > prevValue.length) {
+                const addedChar = newValue.slice(-1);
+                if (addedChar === "H" || addedChar === "I") {
+                  import("@/lib/launch/launch-audio").then(m => m.launchAudio.playKeyTap());
+                }
+              }
+            }}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
