@@ -34,7 +34,7 @@ export default function LaunchOpening({ currentState, onStateChange }: LaunchOpe
           className="absolute inset-0 w-full h-full flex flex-col justify-center items-center"
         >
           {/* Central Interaction Area */}
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl px-8">
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl px-4 md:px-8">
             {/* Logo with reduced gap to MUDRA 26 */}
             <motion.div
               animate={{ 

@@ -11,7 +11,7 @@ interface CommunicationInputProps {
 }
 
 export default function CommunicationInput({ currentState, onComplete }: CommunicationInputProps) {
-  const [value, setValue] = useState("WELCOME");
+  const [value, setValue] = useState("WELCOME TO ABILITY");
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,7 +33,8 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
     return () => clearTimeout(timer);
   }, []);
 
-  const isWelcome = value.trim().toUpperCase() === "WELCOME";
+  const trimmed = value.trim().toUpperCase();
+  const isWelcome = trimmed === "WELCOME TO ABILITY" || trimmed === "WELCOME";
   const canSubmit = isWelcome && !isSubmittedOrLater;
 
   const handleSubmit = (e?: React.FormEvent) => {
@@ -64,11 +65,11 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-center relative z-40"
+      className="flex flex-col items-center w-full relative z-40"
     >
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        {/* Cinematic Input */}
-        <div className="relative mb-12">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+        {/* Cinematic Input Container */}
+        <div className="relative mb-12 w-full max-w-[920px] flex justify-center">
           <motion.input
             ref={inputRef}
             type="text"
@@ -87,8 +88,8 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             animate={{
-              scale: isTransforming ? 1.4 : 1,
-              letterSpacing: isTransforming ? "0.35em" : "0.18em",
+              scale: isTransforming ? 1.2 : 1,
+              letterSpacing: isTransforming ? "0.26em" : "0.14em",
               opacity: isTransforming ? 0 : 1,
               filter: isTransforming ? "blur(8px)" : "blur(0px)",
               color: isSubmittedOrLater ? "#2A2DBB" : "#1E293B"
@@ -96,9 +97,9 @@ export default function CommunicationInput({ currentState, onComplete }: Communi
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className={`
               bg-transparent border-none outline-none
-              text-4xl md:text-6xl lg:text-7xl font-primary font-bold text-center
-              w-72 sm:w-96 md:w-[500px] uppercase tracking-[0.18em]
-              placeholder:text-transparent
+              text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-primary font-bold text-center
+              w-full uppercase tracking-[0.10em] sm:tracking-[0.14em] md:tracking-[0.16em]
+              placeholder:text-transparent px-2
             `}
             spellCheck={false}
             autoComplete="off"
