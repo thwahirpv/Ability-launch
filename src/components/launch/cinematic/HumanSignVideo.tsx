@@ -37,7 +37,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
             console.warn("Video playback blocked, retrying muted:", err);
             if (videoRef.current) {
               videoRef.current.muted = true;
-              videoRef.current.play().catch(() => {});
+              videoRef.current.play().catch(() => { });
             }
           });
         }
@@ -82,12 +82,12 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="absolute inset-0 z-15 pointer-events-none flex flex-col bg-white opacity-0 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8"
     >
       <div className="w-full max-w-[1360px] mx-auto flex flex-col min-h-full">
-        
+
         {/* 1. YouTube-style Search Box with Search Sentence */}
         <div className="w-full max-w-xl md:max-w-2xl h-11 md:h-12 mb-6 rounded-full border border-[#cccccc] bg-white flex items-center overflow-hidden shadow-sm mx-auto flex-shrink-0">
           <div className="flex-1 px-5 text-sm md:text-base font-normal text-slate-800 flex items-center tracking-normal select-none">
@@ -131,7 +131,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                 preload="auto"
                 onEnded={handleVideoEnded}
                 className="w-full h-full object-cover"
-              />  
+              />
             </div>
           </div>
 
@@ -143,7 +143,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
               <div className="px-3.5 py-1.5 rounded-lg bg-[#2538BA] text-white text-xs font-bold tracking-wider uppercase select-none">
                 CANTEEN
               </div>
-              
+
               {/* Action Buttons (Bookmark & Share) */}
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm bg-white">
@@ -212,7 +212,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                     className="w-full h-full object-cover"
                   />
                 </div>
-                
+
                 {/* Card Body */}
                 <div className="p-3.5 bg-white flex items-center justify-between">
                   <div className="flex flex-col gap-0.5">
