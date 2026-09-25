@@ -179,12 +179,12 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
         {/* 4. Related Content Section */}
         <div className="w-full flex flex-col flex-shrink-0">
           {/* Section Header */}
-          <h2 className="text-sm md:text-base font-bold text-slate-900 mb-1.5 select-none">
+          <h2 className="text-sm md:text-base font-bold text-slate-900 mb-2 select-none">
             Related Content
           </h2>
 
-          {/* 8 Cards Grid */}
-          <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3 w-full">
+          {/* 4 Cards Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 lg:gap-5 w-full">
             {[
               {
                 title: "Hello",
@@ -206,30 +206,13 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                 category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_4.png",
               },
-              {
-                title: "Hi",
-                category: "Greetings",
-                image: "/assets/skeltonimages/suggestion_1.png",
-              },
-              {
-                title: "How are you?",
-                category: "Greetings",
-                image: "/assets/skeltonimages/suggestion_2.png",
-              },
-              {
-                title: "Nice to meet you",
-                category: "Greetings",
-                image: "/assets/skeltonimages/suggestion_3.png",
-              },
-              {
-                title: "Welcome",
-                category: "Greetings",
-                image: "/assets/skeltonimages/suggestion_4.png",
-              },
             ].map((item, index) => (
-              <div key={index} className="flex flex-col rounded-lg overflow-hidden shadow-sm border border-slate-200/90 bg-white">
+              <div
+                key={index}
+                className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200/90 bg-white hover:shadow-md transition-shadow"
+              >
                 {/* Card Thumbnail */}
-                <div className="w-full aspect-[4/3] bg-slate-900 relative overflow-hidden">
+                <div className="w-full aspect-[16/10] bg-[#0c233c] relative overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.image}
@@ -239,17 +222,17 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                 </div>
 
                 {/* Card Body */}
-                <div className="p-1.5 md:p-2 bg-white flex items-center justify-between gap-1">
+                <div className="p-2.5 md:p-3 bg-white flex items-center justify-between gap-2">
                   <div className="flex flex-col min-w-0">
-                    <span className="font-bold text-slate-900 text-xs md:text-sm leading-tight truncate">
+                    <span className="font-bold text-slate-900 text-xs md:text-sm leading-snug truncate">
                       {item.title}
                     </span>
-                    <span className="text-[9px] md:text-[10px] text-slate-400 font-medium mt-0.5 truncate">
+                    <span className="text-[10px] md:text-xs text-slate-400 font-medium mt-0.5 truncate">
                       {item.category}
                     </span>
                   </div>
-                  <div className="w-3 h-3 md:w-4 md:h-4 flex items-center justify-center text-slate-400 flex-shrink-0">
-                    <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <div className="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-slate-400 flex-shrink-0">
+                    <svg className="w-3.5 h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                     </svg>
                   </div>
