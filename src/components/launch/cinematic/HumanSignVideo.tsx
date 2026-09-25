@@ -84,7 +84,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 z-15 pointer-events-none flex flex-col bg-white opacity-0 overflow-hidden p-4 md:p-6 lg:p-8"
+      className="absolute inset-0 z-15 pointer-events-none flex flex-col bg-white opacity-0 overflow-visible p-4 pb-0 md:p-6 md:pb-0 lg:p-8 lg:pb-0"
     >
       <div className="w-full max-w-[1360px] mx-auto flex flex-col h-full">
 
@@ -120,7 +120,7 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
         </div>
 
         {/* 3. Main Player & Meta Row */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-24 mb-4 items-start w-full flex-1 min-h-0">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-24 mb-3 items-start w-full flex-1 min-h-[40vh] md:min-h-[50vh] lg:min-h-[56vh]">
           {/* Left Column: Video Card */}
           <div className="h-full flex-shrink-0 max-w-full">
             <div className="h-full aspect-[16/9.5] max-w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-[#0c233c] relative">
@@ -183,8 +183,8 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
             Related Content
           </h2>
 
-          {/* 4 Cards Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 lg:gap-5 w-full">
+          {/* 5 Cards Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 w-full">
             {[
               {
                 title: "Hello",
@@ -206,13 +206,18 @@ export default function HumanSignVideo({ currentState, onComplete }: HumanSignVi
                 category: "Greetings",
                 image: "/assets/skeltonimages/suggestion_4.png",
               },
+              {
+                title: "Hi",
+                category: "Greetings",
+                image: "/assets/skeltonimages/suggestion_1.png",
+              },
             ].map((item, index) => (
               <div
                 key={index}
                 className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200/90 bg-white hover:shadow-md transition-shadow"
               >
                 {/* Card Thumbnail */}
-                <div className="w-full aspect-[16/10] bg-[#0c233c] relative overflow-hidden">
+                <div className="w-full aspect-[16/9] bg-slate-900 relative overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.image}
